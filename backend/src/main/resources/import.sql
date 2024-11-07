@@ -1,5 +1,5 @@
-INSERT INTO tb_user (name, email, password) VALUES ('Bruno Garcia', 'bruno@gmail.com', '123456');
-INSERT INTO tb_user (name, email, password) VALUES ('Eduardo Ribas', 'ribas@gmail.com', '123456');
+INSERT INTO tb_user (name, email, password) VALUES ('Bruno Garcia', 'bruno@gmail.com', '$2a$10$N7SkKCa3r17ga.i.dF9iy.BFUBL2n3b6Z1CWSZWi/qy7ABq/E6VpO');
+INSERT INTO tb_user (name, email, password) VALUES ('Eduardo Ribas', 'ribas@gmail.com', '$2a$10$N7SkKCa3r17ga.i.dF9iy.BFUBL2n3b6Z1CWSZWi/qy7ABq/E6VpO');
 
 INSERT INTO tb_exercise (name, video) VALUES ('Flexão', 'https://www.youtube.com/watch?v=UwRLWMcOdwI');
 INSERT INTO tb_exercise (name, video) VALUES ('Supino Inclinado', 'https://www.youtube.com/watch?v=UwRLWMcOdwI');
