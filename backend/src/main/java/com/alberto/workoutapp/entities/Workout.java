@@ -23,11 +23,14 @@ public class Workout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant date;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    
     @OneToMany(mappedBy = "id.workout")
     private Set<WorkoutItem> items = new HashSet<>();
 

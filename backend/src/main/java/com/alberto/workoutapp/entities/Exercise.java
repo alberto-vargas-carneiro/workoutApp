@@ -20,6 +20,7 @@ public class Exercise {
     private Long id;
     private String name;
     private String video;
+    
     @OneToMany(mappedBy = "id.exercise")
     private Set<WorkoutItem> items = new HashSet<>();
 

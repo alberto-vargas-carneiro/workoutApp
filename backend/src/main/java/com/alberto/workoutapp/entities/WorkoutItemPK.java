@@ -10,6 +10,7 @@ public class WorkoutItemPK {
     @ManyToOne
     @JoinColumn(name = "workout_id")
     private Workout workout;
+    
     @ManyToOne
     @JoinColumn(name = "exercise_id")
     private Exercise exercise;
