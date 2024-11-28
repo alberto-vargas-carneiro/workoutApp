@@ -21,18 +21,18 @@ public class Exercise {
     private String name;
     private String video;
     
-    @OneToMany(mappedBy = "id.exercise")
-    private Set<WorkoutItem> items = new HashSet<>();
-
+    @OneToMany(mappedBy = "exercise")
+    private Set<WorkoutItem> workoutItem = new HashSet<>();
+    
     public Exercise() {
     }
-
+    
     public Exercise(Long id, String name, String video) {
         this.id = id;
         this.name = name;
         this.video = video;
     }
-
+    
     public Long getId() {
         return id;
     }
@@ -40,7 +40,7 @@ public class Exercise {
     public void setId(Long id) {
         this.id = id;
     }
-
+    
     public String getName() {
         return name;
     }
@@ -48,21 +48,21 @@ public class Exercise {
     public void setName(String name) {
         this.name = name;
     }
-
+    
     public String getVideo() {
         return video;
     }
-
+    
     public void setVideo(String video) {
         this.video = video;
     }
 
-    public Set<WorkoutItem> getItems() {
-        return items;
+    public Set<WorkoutItem> getWorkoutItems() {
+        return workoutItem;
     }
 
     public List<Workout> getWorkouts() {
-        return items.stream().map(x -> x.getWorkout()).toList();
+        return workoutItem.stream().map(x -> x.getWorkout()).toList();
     }
 
     @Override

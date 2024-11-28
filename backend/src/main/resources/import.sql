@@ -20,9 +20,11 @@ INSERT INTO tb_workout (name, date, user_id) VALUES ('Treino de Costas', TIMESTA
 INSERT INTO tb_workout (name, date, user_id) VALUES ('Treino de Braço', TIMESTAMP WITH TIME ZONE '2024-01-20T13:00:00Z', 2);
 INSERT INTO tb_workout (name, date, user_id) VALUES ('Treino de Perna', TIMESTAMP WITH TIME ZONE '2022-07-13T13:00:00Z', 1);
 
-INSERT INTO tb_workout_item (workout_id, exercise_id, sets, reps, rest) VALUES (1, 1, 4, 12, 120);
-INSERT INTO tb_workout_item (workout_id, exercise_id, sets, reps, rest) VALUES (1, 2, 4, 12, 120);
-INSERT INTO tb_workout_item (workout_id, exercise_id, sets, reps, rest) VALUES (2, 3, 4, 12, 120);
-INSERT INTO tb_workout_item (workout_id, exercise_id, sets, reps, rest) VALUES (3, 4, 4, 12, 120);
-INSERT INTO tb_workout_item (workout_id, exercise_id, sets, reps, rest) VALUES (3, 5, 4, 12, 120);
-INSERT INTO tb_workout_item (workout_id, exercise_id, sets, reps, rest) VALUES (4, 6, 4, 12, 120);
+INSERT INTO tb_workout_item (workout_id, exercise_id, set_number, reps, rest) VALUES (1, 1, 1, 12, 60);
+INSERT INTO tb_workout_item (workout_id, exercise_id, set_number, reps, rest) VALUES (1, 1, 2, 10, 100);
+INSERT INTO tb_workout_item (workout_id, exercise_id, set_number, reps, rest) VALUES (1, 1, 3, 8, 120);
+INSERT INTO tb_workout_item (workout_id, exercise_id, set_number, reps, rest) VALUES (1, 2, 4, 12, 120);
+INSERT INTO tb_workout_item (workout_id, exercise_id, set_number, reps, rest) VALUES (2, 3, 4, 12, 120);
+INSERT INTO tb_workout_item (workout_id, exercise_id, set_number, reps, rest) VALUES (3, 4, 4, 12, 120);
+INSERT INTO tb_workout_item (workout_id, exercise_id, set_number, reps, rest) VALUES (3, 5, 4, 12, 120);
+INSERT INTO tb_workout_item (workout_id, exercise_id, set_number, reps, rest) VALUES (4, 6, 4, 12, 120);

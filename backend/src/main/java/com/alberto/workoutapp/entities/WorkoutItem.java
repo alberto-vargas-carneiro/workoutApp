@@ -1,51 +1,74 @@
 package com.alberto.workoutapp.entities;
 
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_workout_item")
 public class WorkoutItem {
     
-    @EmbeddedId
-    private WorkoutItemPK id = new WorkoutItemPK();
-    private Integer sets;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private Integer setNumber;
     private Integer reps;
     private Integer rest;
+
+    @ManyToOne
+    @JoinColumn(name = "exercise_id")
+    private Exercise exercise;
+
+    @ManyToOne
+    @JoinColumn(name = "workout_id")
+    private Workout workout;
 
     public WorkoutItem() {
     }
 
-    public WorkoutItem(Workout workout, Exercise exercise, Integer sets, Integer reps, Integer rest) {
-        id.setWorkout(workout);
-        id.setExercise(exercise);
-        this.sets = sets;
+    public WorkoutItem(Long id, Workout workout, Exercise exercise, Integer setNumber, Integer reps, Integer rest) {
+        this.id = id;
+        this.workout = workout;
+        this.exercise = exercise;
+        this.setNumber = setNumber;
         this.reps = reps;
         this.rest = rest;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public Workout getWorkout() {
-        return id.getWorkout();
+        return workout;
     }
 
     public void setWorkout(Workout workout) {
-        id.setWorkout(workout);
+        this.workout = workout;
     }
+
     public Exercise getExercise() {
-        return id.getExercise();
+        return exercise;
     }
 
     public void setExercise(Exercise exercise) {
-        id.setExercise(exercise);
+        this.exercise = exercise;
     }
 
-    public Integer getSets() {
-        return sets;
+    public Integer getSetNumber() {
+        return setNumber;
     }
 
-    public void setSets(Integer sets) {
-        this.sets = sets;
+    public void setSetNumber(Integer setNumber) {
+        this.setNumber = setNumber;
     }
 
     public Integer getReps() {

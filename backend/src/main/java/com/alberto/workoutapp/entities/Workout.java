@@ -30,9 +30,9 @@ public class Workout {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    
-    @OneToMany(mappedBy = "id.workout")
-    private Set<WorkoutItem> items = new HashSet<>();
+
+    @OneToMany(mappedBy = "workout")
+    private Set<WorkoutItem> workoutItem = new HashSet<>();
 
     public Workout() {
     }
@@ -75,12 +75,12 @@ public class Workout {
         this.user = user;
     }
 
-    public Set<WorkoutItem> getItems() {
-        return items;
+    public Set<WorkoutItem> getWorkoutItem() {
+        return workoutItem;
     }
 
     public List<Exercise> getExercises() {
-        return items.stream().map(x -> x.getExercise()).toList();
+        return workoutItem.stream().map(x -> x.getExercise()).toList();
     }
 
     @Override
