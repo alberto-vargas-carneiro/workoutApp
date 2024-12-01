@@ -1,8 +1,7 @@
 package com.alberto.workoutapp.entities;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -22,7 +21,7 @@ public class Exercise {
     private String video;
     
     @OneToMany(mappedBy = "exercise")
-    private Set<WorkoutItem> workoutItem = new HashSet<>();
+    private List<WorkoutItem> workoutItem = new ArrayList<>();
     
     public Exercise() {
     }
@@ -57,7 +56,7 @@ public class Exercise {
         this.video = video;
     }
 
-    public Set<WorkoutItem> getWorkoutItems() {
+    public List<WorkoutItem> getWorkoutItems() {
         return workoutItem;
     }
 

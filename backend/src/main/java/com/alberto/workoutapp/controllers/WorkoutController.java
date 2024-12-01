@@ -32,14 +32,14 @@ public class WorkoutController {
         return ResponseEntity.ok(dto);
     }
 
-    // @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    // @PostMapping
-    // public ResponseEntity<WorkoutDTO> insert(@RequestBody WorkoutDTO dto) {
-    //     dto = service.insert(dto);
-    //     URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-    //             .buildAndExpand(dto.getId()).toUri();
-    //     return ResponseEntity.created(uri).body(dto);
-    // }
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
+    @PostMapping
+    public ResponseEntity<WorkoutDTO> insert(@RequestBody WorkoutDTO dto) {
+        dto = service.insert(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(dto.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
+    }
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PutMapping(value = "/{id}")

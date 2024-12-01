@@ -8,13 +8,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.alberto.workoutapp.dto.ExerciseDTO;
 import com.alberto.workoutapp.dto.WorkoutDTO;
 import com.alberto.workoutapp.dto.WorkoutItemDTO;
 import com.alberto.workoutapp.entities.Exercise;
 import com.alberto.workoutapp.entities.User;
 import com.alberto.workoutapp.entities.Workout;
 import com.alberto.workoutapp.entities.WorkoutItem;
+import com.alberto.workoutapp.repositories.ExerciseRepository;
+import com.alberto.workoutapp.repositories.WorkoutItemRepository;
 import com.alberto.workoutapp.repositories.WorkoutRepository;
 import com.alberto.workoutapp.services.exceptions.DatabaseException;
 import com.alberto.workoutapp.services.exceptions.ResourceNotFoundException;
@@ -26,6 +27,12 @@ public class WorkoutService {
     
     @Autowired
     private WorkoutRepository repository;
+
+    @Autowired
+    private WorkoutItemRepository workoutItemRepository;
+
+    @Autowired
+    private ExerciseRepository exerciseRepository;
 
     @Autowired
     private UserService userService;
@@ -43,20 +50,27 @@ public class WorkoutService {
     //     return result.map(x -> new WorkoutDTO(x));
     // }
 
-    // @Transactional
-    // public WorkoutDTO insert(WorkoutDTO dto) {
-    //     Workout entity = new Workout();
-    //     copyDtoToEntity(dto, entity);
-    //     entity.setDate(Instant.now());
-    //     User user = userService.authenticated();
-    // 	entity.setUser(user);
-    //     for (WorkoutItemDTO workoutItemDto : dto.getWorkoutItems()) {
-    //         WorkoutItem workoutItem = new WorkoutItem(workoutItemDto.getId(), workoutItemDto.getName(), workoutItemDto.getVideo());
-    //         entity.getExercises().add(workoutItem);
-    //     }
-    //     entity = repository.save(entity);
-    //     return new WorkoutDTO(entity);
-    // }
+    @Transactional
+    public WorkoutDTO insert(WorkoutDTO dto) {
+        Workout entity = new Workout();
+        
+        copyDtoToEntity(dto, entity);
+
+        entity.setDate(Instant.now());
+
+        User user = userService.authenticated();
+    	entity.setUser(user);
+
+        for (WorkoutItemDTO workoutItemDto : dto.getWorkoutItems()) {
+            Exercise exercise = exerciseRepository.getReferenceById(workoutItemDto.getExerciseId());
+            WorkoutItem workoutItem = new WorkoutItem(workoutItemDto.getId(), entity, exercise, workoutItemDto.getSetNumber(), workoutItemDto.getReps(), workoutItemDto.getRest());
+            entity.getWorkoutItem().add(workoutItem);
+        }
+        repository.save(entity);
+        workoutItemRepository.saveAll(entity.getWorkoutItem());
+
+        return new WorkoutDTO(entity);
+    }
 
     @Transactional
     public WorkoutDTO update(Long id, WorkoutDTO dto) {

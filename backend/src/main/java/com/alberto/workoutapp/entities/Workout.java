@@ -1,9 +1,8 @@
 package com.alberto.workoutapp.entities;
 
 import java.time.Instant;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,7 +31,7 @@ public class Workout {
     private User user;
 
     @OneToMany(mappedBy = "workout")
-    private Set<WorkoutItem> workoutItem = new HashSet<>();
+    private List<WorkoutItem> workoutItem = new ArrayList<>();
 
     public Workout() {
     }
@@ -75,7 +74,7 @@ public class Workout {
         this.user = user;
     }
 
-    public Set<WorkoutItem> getWorkoutItem() {
+    public List<WorkoutItem> getWorkoutItem() {
         return workoutItem;
     }
 
