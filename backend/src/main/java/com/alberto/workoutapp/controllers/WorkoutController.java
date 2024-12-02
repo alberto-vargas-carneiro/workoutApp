@@ -18,6 +18,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.alberto.workoutapp.dto.WorkoutDTO;
 import com.alberto.workoutapp.services.WorkoutService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/workouts")
 public class WorkoutController {
@@ -34,7 +36,7 @@ public class WorkoutController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PostMapping
-    public ResponseEntity<WorkoutDTO> insert(@RequestBody WorkoutDTO dto) {
+    public ResponseEntity<WorkoutDTO> insert(@Valid @RequestBody WorkoutDTO dto) {
         dto = service.insert(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(dto.getId()).toUri();
@@ -43,7 +45,7 @@ public class WorkoutController {
 
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @PutMapping(value = "/{id}")
-    public ResponseEntity<WorkoutDTO> update(@PathVariable Long id, @RequestBody WorkoutDTO dto) {
+    public ResponseEntity<WorkoutDTO> update(@Valid @PathVariable Long id, @RequestBody WorkoutDTO dto) {
         dto = service.update(id, dto);
         return ResponseEntity.ok(dto);
     }
