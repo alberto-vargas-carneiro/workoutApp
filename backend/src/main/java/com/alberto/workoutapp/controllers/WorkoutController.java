@@ -25,7 +25,7 @@ public class WorkoutController {
     @Autowired
     private WorkoutService service;
 
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
     @GetMapping(value = "/{id}")
     public ResponseEntity<WorkoutDTO> findById(@PathVariable Long id) {
         WorkoutDTO dto = service.findById(id);

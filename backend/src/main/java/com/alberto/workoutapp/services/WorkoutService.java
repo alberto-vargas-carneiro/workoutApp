@@ -37,18 +37,16 @@ public class WorkoutService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private ValidateUser validateUser;
+
     @Transactional(readOnly = true)
     public WorkoutDTO findById(Long id) {
         Workout workout = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Recurso não encontrado"));
+        validateUser.validateSelfOrAdmin(workout.getUser().getId());
         return new WorkoutDTO(workout);
     }
-
-    // @Transactional(readOnly = true)
-    // public Page<WorkoutDTO> findAll(Pageable pageable) {
-    //     Page<Workout> result = repository.findAll(pageable);
-    //     return result.map(x -> new WorkoutDTO(x));
-    // }
 
     @Transactional
     public WorkoutDTO insert(WorkoutDTO dto) {
