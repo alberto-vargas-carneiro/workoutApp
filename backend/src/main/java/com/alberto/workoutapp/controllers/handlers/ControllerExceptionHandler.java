@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.alberto.workoutapp.dto.CustomError;
 import com.alberto.workoutapp.dto.ValidationError;
+import com.alberto.workoutapp.services.exceptions.BadRequestException;
 import com.alberto.workoutapp.services.exceptions.DatabaseException;
 import com.alberto.workoutapp.services.exceptions.ForbiddenException;
 import com.alberto.workoutapp.services.exceptions.ResourceNotFoundException;
@@ -29,6 +30,13 @@ public class ControllerExceptionHandler {
 
     @ExceptionHandler(DatabaseException.class)
     public ResponseEntity<CustomError> database(DatabaseException e, HttpServletRequest request) {
+        HttpStatus status = HttpStatus.BAD_REQUEST;
+        CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
+        return ResponseEntity.status(status).body(err);
+    }
+
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<CustomError> badRequest(BadRequestException e, HttpServletRequest request) {
         HttpStatus status = HttpStatus.BAD_REQUEST;
         CustomError err = new CustomError(Instant.now(), status.value(), e.getMessage(), request.getRequestURI());
         return ResponseEntity.status(status).body(err);
