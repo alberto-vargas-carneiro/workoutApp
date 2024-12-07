@@ -52,7 +52,7 @@ public class WorkoutService {
     public WorkoutDTO insert(WorkoutDTO dto) {
         Workout entity = new Workout();
         
-        copyDtoToEntity(dto, entity);
+        entity.setName(dto.getName());
 
         entity.setDate(Instant.now());
 
@@ -61,7 +61,7 @@ public class WorkoutService {
 
         for (WorkoutItemDTO workoutItemDto : dto.getWorkoutItems()) {
             Exercise exercise = exerciseRepository.getReferenceById(workoutItemDto.getExerciseId());
-            WorkoutItem workoutItem = new WorkoutItem(workoutItemDto.getId(), entity, exercise, workoutItemDto.getSetNumber(), workoutItemDto.getReps(), workoutItemDto.getRest());
+            WorkoutItem workoutItem = new WorkoutItem(workoutItemDto.getId(), entity, exercise, workoutItemDto.getSetNumber(), workoutItemDto.getReps(), workoutItemDto.getRest(), workoutItemDto.getWeight());
             entity.getWorkoutItem().add(workoutItem);
         }
         repository.save(entity);
@@ -74,7 +74,7 @@ public class WorkoutService {
     public WorkoutDTO update(Long id, WorkoutDTO dto) {
         try {
             Workout entity = repository.getReferenceById(id);
-            copyDtoToEntity(dto, entity);
+            entity.setName(dto.getName());
             entity = repository.save(entity);
             return new WorkoutDTO(entity);
         } catch (EntityNotFoundException e) {
@@ -92,11 +92,5 @@ public class WorkoutService {
         } catch (DataIntegrityViolationException e) {
             throw new DatabaseException("Violação de integridade");
         }
-    }
-
-    private void copyDtoToEntity(WorkoutDTO dto, Workout entity) {
-        entity.setName(dto.getName());
-        // entity.setDate(dto.getDate());
-        // entity.setUser(dto.getUser());
     }
 }

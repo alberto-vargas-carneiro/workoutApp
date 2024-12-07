@@ -18,6 +18,7 @@ public class WorkoutItem {
     private Integer setNumber;
     private Integer reps;
     private Integer rest;
+    private Integer weight;
 
     @ManyToOne
     @JoinColumn(name = "exercise_id")
@@ -30,13 +31,14 @@ public class WorkoutItem {
     public WorkoutItem() {
     }
 
-    public WorkoutItem(Long id, Workout workout, Exercise exercise, Integer setNumber, Integer reps, Integer rest) {
+    public WorkoutItem(Long id, Workout workout, Exercise exercise, Integer setNumber, Integer reps, Integer rest, Integer weight) {
         this.id = id;
         this.workout = workout;
         this.exercise = exercise;
         this.setNumber = setNumber;
         this.reps = reps;
         this.rest = rest;
+        this.weight = weight;
     }
 
     public Long getId() {
@@ -85,6 +87,14 @@ public class WorkoutItem {
 
     public void setRest(Integer rest) {
         this.rest = rest;
+    }
+
+    public Integer getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     @Override
