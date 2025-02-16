@@ -1,0 +1,53 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    height: calc(100% + 20px);;
+    width: calc(100% + 20px);;
+    background-image: url('/imagemDeFundo.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.form,
+.loginButton {
+    width: 70vw;
+    background-color: #ffffffe5;
+    color: #d0d0d0;
+    margin-bottom: 32px;
+    padding: 15px;
+    border-radius: 25px;
+    font-size: 20px;
+}
+
+.loginButton {
+    background-color: #A41618;
+}
+
+.line {
+    width: 80vw;
+    height: 4px;
+    background-color: #ffffff;
+    border-radius: 25px;
+    margin-bottom: 32px;
+}
