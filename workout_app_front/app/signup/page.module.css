@@ -44,29 +44,21 @@
     background-color: #A41618;
     color: #e7e7e7;
     width: 70vw;
-    /* margin-bottom: 32px; */
     padding: 15px;
     border-radius: 25px;
     font-size: 20px;
 }
 
-.line {
-    width: 75vw;
-    height: 4px;
-    background-color: #ffffff;
-    border-radius: 25px;
-    margin-bottom: 32px;
-}
-
 .eye {
     position: absolute;
     right: 30px;
-    top: 105px;
+    top: 190px;
     color: #a3a3a3;
 }
 
-.nonUser {
-    color: #000000;
-    font-size: 16px;
-    margin: 20px;
+.success {
+    background-color: #27c52f;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 32px;
 }
