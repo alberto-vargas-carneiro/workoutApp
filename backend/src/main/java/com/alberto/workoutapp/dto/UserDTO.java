@@ -13,7 +13,7 @@ public class UserDTO {
     private Long id;
     private String name;
     private String email;
-    private List<String> workouts = new ArrayList<>();
+    private List<WorkoutMinDTO> workouts = new ArrayList<>();
     private List<String> roles = new ArrayList<>();
 
     public UserDTO(User entity) {
@@ -21,7 +21,7 @@ public class UserDTO {
         name = entity.getName();
         email = entity.getEmail();
         for (Workout workout : entity.getWorkouts()) {
-            workouts.add(workout.getName());
+            workouts.add(new WorkoutMinDTO(workout));
         }
         for (GrantedAuthority role : entity.getAuthorities()) {
             roles.add(role.getAuthority());
@@ -40,7 +40,7 @@ public class UserDTO {
         return email;
     }
 
-    public List<String> getWorkouts() {
+    public List<WorkoutMinDTO> getWorkouts() {
         return workouts;
     }
 

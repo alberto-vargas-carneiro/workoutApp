@@ -25,6 +25,7 @@ export default function Home() {
     event.preventDefault()
     authService.loginRequest(formData)
       .then(response => {
+        authService.saveAccessToken(response.data.access_token)
         console.log('Sucesso:', response.data)
       })
       .catch(error => {

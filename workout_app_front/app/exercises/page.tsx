@@ -3,16 +3,15 @@
 import { ExerciseDTO } from '@/app/models/exercise';
 import style from './page.module.css';
 import { useEffect, useState } from 'react';
-import { BASE_URL } from '@/app/utils/system';
-import axios from 'axios';
-import ExerciseCard from './exercise-card/page';
+import ExerciseCard from '../cards/exercise-card/page';
+import * as exerciseService from '../services/exercise-service';
 
 export default function ExercisePage() {
 
     const [exercises, setExercises] = useState<ExerciseDTO[]>([]);
 
     useEffect(() => {
-        axios.get(BASE_URL + '/exercises')
+        exerciseService.getExercises()
             .then(response => {
                 setExercises(response.data.content);
             });
@@ -21,7 +20,7 @@ export default function ExercisePage() {
     return (
         <div className={style.container}>
             {exercises.map(exercise => <ExerciseCard key={exercise.id} exercise={exercise} />)
-}
+            }
         </div>
     );
 }

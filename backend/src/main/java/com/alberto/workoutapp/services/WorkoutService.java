@@ -1,6 +1,8 @@
 package com.alberto.workoutapp.services;
 
 import java.time.Instant;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -24,7 +26,7 @@ import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class WorkoutService {
-    
+
     @Autowired
     private WorkoutRepository repository;
 
@@ -48,20 +50,36 @@ public class WorkoutService {
         return new WorkoutDTO(workout);
     }
 
+    @Transactional(readOnly = true)
+    public List<WorkoutDTO> findByUserId(Long id) {
+        List<Workout> workout = repository.findByUserId(id);
+        if (workout.isEmpty()) {
+            throw new ResourceNotFoundException("Recurso não encontrado");
+        }
+
+        validateUser.validateSelfOrAdmin(workout.get(0).getUser().getId());
+
+        return workout.stream()
+                .map(WorkoutDTO::new)
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public WorkoutDTO insert(WorkoutDTO dto) {
         Workout entity = new Workout();
-        
+
         entity.setName(dto.getName());
 
         entity.setDate(Instant.now());
 
         User user = userService.authenticated();
-    	entity.setUser(user);
+        entity.setUser(user);
 
         for (WorkoutItemDTO workoutItemDto : dto.getWorkoutItems()) {
             Exercise exercise = exerciseRepository.getReferenceById(workoutItemDto.getExerciseId());
-            WorkoutItem workoutItem = new WorkoutItem(workoutItemDto.getId(), entity, exercise, workoutItemDto.getSetNumber(), workoutItemDto.getReps(), workoutItemDto.getRest(), workoutItemDto.getWeight());
+            WorkoutItem workoutItem = new WorkoutItem(workoutItemDto.getId(), entity, exercise,
+                    workoutItemDto.getSetNumber(), workoutItemDto.getReps(), workoutItemDto.getRest(),
+                    workoutItemDto.getWeight());
             entity.getWorkoutItem().add(workoutItem);
         }
         repository.save(entity);
