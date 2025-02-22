@@ -1,4 +1,4 @@
-# Training App 📱
+# Workout App 📱
 ## Project Description
 This project is a training management app designed to facilitate exercise tracking and workout routine management. The backend is developed in Java using the Spring framework, with PostgreSQL as the database. The frontend is built with React, providing a dynamic and intuitive interface.
 
