@@ -6,8 +6,11 @@ import { IoEyeOff } from "react-icons/io5";
 import { useState } from "react";
 import { CredentialsDTO } from "./models/auth";
 import * as authService from "./services/auth-service";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+
+  const router = useRouter();
 
   const [formData, setFormData] = useState<CredentialsDTO>({
     username: '',
@@ -26,16 +29,17 @@ export default function Home() {
     authService.loginRequest(formData)
       .then(response => {
         authService.saveAccessToken(response.data.access_token)
-        console.log('Sucesso:', response.data)
+        // console.log('Sucesso:', response.data)
+        router.push('/workouts')
       })
       .catch(error => {
         console.log('Erro:', error.response.data)
       })
   }
 
-  function handleRedirect() {
-    window.location.href = '/signup'
-  }
+  // function handleRedirect() {
+  //   window.location.href = '/signup'
+  // }
 
 
   return (
@@ -71,7 +75,7 @@ export default function Home() {
             )}
             
           <button className={style.loginButton} type="submit">login</button>
-          <span className={style.nonUser} onClick={handleRedirect}>Não possui conta? Clique aqui</span>
+          <span className={style.nonUser} onClick={() => router.push('/signup')}>Não possui conta? Clique aqui</span>
           <span className={style.line}></span>
           <button className={style.loginButton}>login com google</button>
         </form>

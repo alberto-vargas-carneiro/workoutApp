@@ -28,26 +28,21 @@ export default function WorkoutPage() {
 
   if (!workouts?.length) {
     return (
-      <div>
-        <h2>Você ainda não possui treinos cadastrados</h2>
-        <p>Clique no botão abaixo para criar seu primeiro treino:</p>
-        Criar Treino
+      <div className={style.container}>
+
+        <span className={style.vazio}>Aqui está vazio!</span>
+        <span className={style.vazio}>Comece a mudança agora mesmo!</span>
+        <button className={style.add}>+</button>
       </div>
     );
   }
 
   return (
-    <div className={style.container}>
 
-      <span className={style.vazio}>Aqui está vazio!</span>
-      <span className={style.vazio}>Comece a mudança agora mesmo!</span>
-      <button className={style.add}>+</button>
-      <div>
-        {workouts.map(workout => (
-          <WorkoutCard key={workout.id} workout={workout} />
-        ))}
-
-      </div>
+    <div>
+      {workouts.map(workout => (
+        <WorkoutCard key={workout.id} workout={workout} />
+      ))}
     </div>
   );
 };
