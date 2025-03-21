@@ -33,7 +33,7 @@
 .form {
     width: 70vw;
     background-color: #ffffffe5;
-    color: #a3a3a3;
+    color: #5c5c5c;
     margin-bottom: 32px;
     padding: 15px;
     border-radius: 25px;
@@ -62,7 +62,7 @@
     position: absolute;
     right: 30px;
     top: 105px;
-    color: #a3a3a3;
+    color: #5c5c5c;
 }
 
 .nonUser {

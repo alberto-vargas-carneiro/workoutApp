@@ -3,8 +3,8 @@
 import { ExerciseDTO } from '@/app/models/exercise';
 import style from './page.module.css';
 import { useEffect, useState } from 'react';
-import ExerciseCard from '../cards/exercise-card/page';
-import * as exerciseService from '../services/exercise-service';
+import ExerciseCard from '../../cards/exercise-card/page';
+import * as exerciseService from '../../services/exercise-service';
 
 export default function ExercisePage() {
 

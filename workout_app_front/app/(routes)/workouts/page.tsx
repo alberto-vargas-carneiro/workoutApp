@@ -1,10 +1,10 @@
 'use client'
 
 import { useEffect, useState } from 'react';
-import * as userService from '../services/user-service';
+import * as userService from '../../services/user-service';
 import style from './page.module.css';
-import { WorkoutDTO } from '../models/workout';
-import WorkoutCard from '../cards/workout-card/page';
+import { WorkoutDTO } from '../../models/workout';
+import WorkoutCard from '../../cards/workout-card/page';
 
 export default function WorkoutPage() {
 

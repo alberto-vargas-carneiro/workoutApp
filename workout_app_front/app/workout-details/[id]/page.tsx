@@ -16,7 +16,7 @@ export default function WorkoutDetailsPage() {
         .then(response => {
           setWorkout(response.data);
           setLoading(false);
-          console.log(response.data);
+          console.log(response.data.workoutItems);
         })
         .catch(error => {
           console.error(error);

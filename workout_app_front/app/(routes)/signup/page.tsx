@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import { UserDTO } from "../models/auth";
-import * as authService from "../services/auth-service";
+import { UserDTO } from "../../models/auth";
+import * as authService from "../../services/auth-service";
 import style from "./page.module.css";
 
 export default function SignUp() {
