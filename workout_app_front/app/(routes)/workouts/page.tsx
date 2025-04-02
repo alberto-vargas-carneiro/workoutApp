@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import * as userService from '../../services/user-service';
 import style from './page.module.css';
 import { WorkoutDTO } from '../../models/workout';
-import WorkoutCard from '../../cards/workout-card/page';
+import WorkoutCard from '../../cards/workout-cards/workout/page';
 
 export default function WorkoutPage() {
 
@@ -39,7 +39,7 @@ export default function WorkoutPage() {
 
   return (
 
-    <div>
+    <div className={style.workout_container}>
       {workouts.map(workout => (
         <WorkoutCard key={workout.id} workout={workout} />
       ))}

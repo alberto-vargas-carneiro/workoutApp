@@ -7,6 +7,12 @@
     flex-direction: column;
 }
 
+.workout_container {
+    background-color: #060606;
+    height: 100vh;
+    padding: 40px;
+}
+
 .add {
     background-color: #A41618;
     color: #ffffff;

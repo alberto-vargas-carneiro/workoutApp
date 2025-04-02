@@ -2,13 +2,14 @@
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
-    margin: 20px;
-    padding: 10px;
-    background-color: #dadada;
+    margin-bottom: 20px;
+    padding: 30px;
+    background-color: #A41618;
     border-radius: 15px;
     gap: 20px;
 }
 
 .text {
     justify-self: center;
+    color: #fff;
 }

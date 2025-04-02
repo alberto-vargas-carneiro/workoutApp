@@ -13,7 +13,7 @@ function formatDate(isoString: string): string {
 
 export default function WorkoutCard({ workout }: WorkoutCardProps) {
     return (
-        <Link href={`/workout-details/${workout.id}`}>	
+        <Link href={`../../../workout-details/${workout.id}`}>	
             <div className={style.container}>
                 <div className={style.text}>
                     {workout.name}
