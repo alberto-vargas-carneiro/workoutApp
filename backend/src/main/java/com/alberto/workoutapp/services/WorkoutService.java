@@ -1,7 +1,9 @@
 package com.alberto.workoutapp.services;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,18 +90,6 @@ public class WorkoutService {
         return new WorkoutDTO(entity);
     }
 
-    @Transactional
-    public WorkoutDTO update(Long id, WorkoutDTO dto) {
-        try {
-            Workout entity = repository.getReferenceById(id);
-            entity.setName(dto.getName());
-            entity = repository.save(entity);
-            return new WorkoutDTO(entity);
-        } catch (EntityNotFoundException e) {
-            throw new ResourceNotFoundException("Recurso não encontrado");
-        }
-    }
-
     @Transactional(propagation = Propagation.SUPPORTS)
     public void delete(Long id) {
         if (!repository.existsById(id)) {
@@ -111,4 +101,65 @@ public class WorkoutService {
             throw new DatabaseException("Violação de integridade");
         }
     }
+
+    @Transactional
+    public WorkoutDTO update(Long id, WorkoutDTO dto) {
+        try {
+            Workout entity = repository.getReferenceById(id);
+            entity.setName(dto.getName());
+
+            Map<Long, WorkoutItem> existingItemsMap = entity.getWorkoutItem().stream()
+                    .collect(Collectors.toMap(WorkoutItem::getId, item -> item));
+
+            List<WorkoutItem> updatedItems = new ArrayList<>();
+
+            for (WorkoutItemDTO itemDto : dto.getWorkoutItems()) {
+                if (itemDto.getExerciseId() == null) {
+                    throw new IllegalArgumentException("O campo exerciseId é obrigatório.");
+                }
+
+                Exercise exercise = exerciseRepository.findById(itemDto.getExerciseId())
+                        .orElseThrow(() -> new IllegalArgumentException(
+                                "Exercício com ID " + itemDto.getExerciseId() + " não encontrado."));
+
+                WorkoutItem item;
+                if (itemDto.getId() != null && existingItemsMap.containsKey(itemDto.getId())) {
+                    item = existingItemsMap.remove(itemDto.getId());
+                    item.setExercise(exercise);
+                    item.setSetNumber(itemDto.getSetNumber());
+                    item.setReps(itemDto.getReps());
+                    item.setRest(itemDto.getRest());
+                    item.setWeight(itemDto.getWeight());
+                } else {
+                    item = new WorkoutItem();
+                    item.setWorkout(entity);
+                    item.setExercise(exercise);
+                    item.setSetNumber(itemDto.getSetNumber());
+                    item.setReps(itemDto.getReps());
+                    item.setRest(itemDto.getRest());
+                    item.setWeight(itemDto.getWeight());
+                }
+                System.out.println("Adicionando WorkoutItem com exercise ID: " +
+                        (item.getExercise() != null ? item.getExercise().getId() : "NULL"));
+
+                updatedItems.add(item);
+            }
+
+            for (WorkoutItem toRemove : existingItemsMap.values()) {
+                workoutItemRepository.delete(toRemove);
+            }
+
+            entity.getWorkoutItem().clear();
+            entity.getWorkoutItem().addAll(updatedItems);
+
+            entity = repository.save(entity);
+            workoutItemRepository.saveAll(updatedItems);
+
+            return new WorkoutDTO(entity);
+
+        } catch (EntityNotFoundException e) {
+            throw new ResourceNotFoundException("Workout não encontrado");
+        }
+    }
+
 }

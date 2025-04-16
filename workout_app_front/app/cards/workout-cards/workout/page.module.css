@@ -1,7 +1,5 @@
 .container {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
+    position: relative;
     margin-bottom: 20px;
     padding: 30px;
     background-color: #A41618;
@@ -12,4 +10,14 @@
 .text {
     justify-self: center;
     color: #fff;
+    font-weight: 600;
+}
+
+.date {
+    position: absolute;
+    color: #fff;
+    transform: translateX(50%);
+    right: 50%;
+    font-size: 0.8rem;
+    bottom: 7px;
 }

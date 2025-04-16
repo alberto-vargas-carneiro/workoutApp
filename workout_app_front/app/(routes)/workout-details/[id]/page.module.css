@@ -4,7 +4,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .title {
@@ -19,6 +19,7 @@
     position: absolute;
     left: 30px;
     top: 30px;
+    color: #fff;
 }
 
 .items_container {
@@ -29,6 +30,7 @@
     border-radius: 15px 15px 0 0;
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     /* align-items: center; */
     padding: 30px 40px;
 }

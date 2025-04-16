@@ -7,5 +7,5 @@ export function getExercises() {
         Authorization: "Bearer " + authService.getAccessToken()
     }
 
-    return requestBackend({ url: "/exercises", headers });
+    return requestBackend({ url: "/exercises?sort=name", headers });
 }

@@ -16,7 +16,7 @@ public class WorkoutItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer setNumber;
-    private Integer reps;
+    private String reps;
     private Integer rest;
     private Integer weight;
 
@@ -31,7 +31,7 @@ public class WorkoutItem {
     public WorkoutItem() {
     }
 
-    public WorkoutItem(Long id, Workout workout, Exercise exercise, Integer setNumber, Integer reps, Integer rest, Integer weight) {
+    public WorkoutItem(Long id, Workout workout, Exercise exercise, Integer setNumber, String reps, Integer rest, Integer weight) {
         this.id = id;
         this.workout = workout;
         this.exercise = exercise;
@@ -73,11 +73,11 @@ public class WorkoutItem {
         this.setNumber = setNumber;
     }
 
-    public Integer getReps() {
+    public String getReps() {
         return reps;
     }
 
-    public void setReps(Integer reps) {
+    public void setReps(String reps) {
         this.reps = reps;
     }
 

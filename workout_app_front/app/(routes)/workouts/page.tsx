@@ -38,11 +38,17 @@ export default function WorkoutPage() {
   }
 
   return (
-
-    <div className={style.workout_container}>
-      {workouts.map(workout => (
-        <WorkoutCard key={workout.id} workout={workout} />
-      ))}
+    <div className={style.container2}>
+      <div className={style.workout_container}>
+        {workouts.map(workout => (
+          <>
+            <WorkoutCard key={workout.id} workout={workout} />
+          </>
+        ))}
+      </div>
+      <div className={style.add2_container}>
+        <button className={style.add2}>+</button>
+      </div>
     </div>
   );
 };

@@ -18,7 +18,7 @@ export default function WorkoutCard({ workout }: WorkoutCardProps) {
                 <div className={style.text}>
                     {workout.name}
                 </div>
-                <span className={style.text}>{formatDate(workout.date)}</span>
+                <div className={style.date}>{formatDate(workout.date)}</div>
             </div >
         </Link>
     );

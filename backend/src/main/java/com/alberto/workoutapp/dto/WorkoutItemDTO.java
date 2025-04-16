@@ -8,13 +8,12 @@ public class WorkoutItemDTO {
     private Long exerciseId;
     private String exerciseName;
     private Integer setNumber;
-    private Integer reps;
+    private String reps;
     private Integer rest;
     private Integer weight;
     private String video;
 
-
-    public WorkoutItemDTO(Long id, Long exerciseId, String exerciseName, Integer setNumber, Integer reps,
+    public WorkoutItemDTO(Long id, Long exerciseId, String exerciseName, Integer setNumber, String reps,
             Integer rest, Integer weight, String video) {
         this.id = id;
         this.exerciseId = exerciseId;
@@ -28,13 +27,17 @@ public class WorkoutItemDTO {
 
     public WorkoutItemDTO(WorkoutItem entity) {
         id = entity.getId();
-        exerciseId = entity.getExercise().getId();
-        exerciseName = entity.getExercise().getName();
+
+        if (entity.getExercise() != null) {
+            exerciseId = entity.getExercise().getId();
+            exerciseName = entity.getExercise().getName();
+            video = entity.getExercise().getVideo();
+        }
+
         setNumber = entity.getSetNumber();
         reps = entity.getReps();
         rest = entity.getRest();
         weight = entity.getWeight();
-        video = entity.getExercise().getVideo();
     }
 
     public Long getId() {
@@ -53,7 +56,7 @@ public class WorkoutItemDTO {
         return setNumber;
     }
 
-    public Integer getReps() {
+    public String getReps() {
         return reps;
     }
 
