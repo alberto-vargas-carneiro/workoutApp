@@ -5,6 +5,7 @@ import * as userService from '../../services/user-service';
 import style from './page.module.css';
 import { WorkoutDTO } from '../../models/workout';
 import WorkoutCard from '../../cards/workout-cards/workout/page';
+import Link from 'next/link';
 
 export default function WorkoutPage() {
 
@@ -32,6 +33,9 @@ export default function WorkoutPage() {
 
         <span className={style.vazio}>Aqui está vazio!</span>
         <span className={style.vazio}>Comece a mudança agora mesmo!</span>
+        <Link href={'/workout-creation'}>
+          <div className={style.add2}>+</div>
+        </Link>
         <button className={style.add}>+</button>
       </div>
     );
@@ -47,7 +51,10 @@ export default function WorkoutPage() {
         ))}
       </div>
       <div className={style.add2_container}>
-        <button className={style.add2}>+</button>
+        <Link href={'/workout-creation'}>
+          <span className={style.add2}>+</span>
+          {/* <button className={style.add2}>+</button> */}
+        </Link>
       </div>
     </div>
   );

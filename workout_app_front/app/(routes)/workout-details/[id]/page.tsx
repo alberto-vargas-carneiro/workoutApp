@@ -70,7 +70,7 @@ export default function WorkoutDetailsPage() {
     }
   }, [id]);
 
-  function handleSetChange(groupIndex: number, setIndex: number, field: keyof WorkoutItemDTO, value: any) {
+  function handleSetChange(groupIndex: number, setIndex: number, field: keyof WorkoutItemDTO, value: WorkoutItemDTO[keyof WorkoutItemDTO]) {
     setGroupedItems(prev => prev.map((group, idx) => {
       if (idx !== groupIndex) return group;
       return { 
@@ -92,8 +92,8 @@ export default function WorkoutDetailsPage() {
         exerciseId: group.exerciseId,
         exerciseName: group.exerciseName,
         setNumber: group.sets.length + 1,
-        reps: '',
-        rest: 0,
+        reps: '12',
+        rest: 60,
         weight: 0
       };
       return { ...group, sets: [...group.sets, newSet] };

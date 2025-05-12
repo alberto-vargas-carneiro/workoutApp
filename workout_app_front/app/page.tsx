@@ -75,9 +75,7 @@ export default function Home() {
             )}
             
           <button className={style.loginButton} type="submit">login</button>
-          <span className={style.nonUser} onClick={() => router.push('/signup')}>Não possui conta? Clique aqui</span>
-          <span className={style.line}></span>
-          <button className={style.loginButton}>login com google</button>
+          <span className={style.signUp} onClick={() => router.push('/signup')}>Não possui conta? Clique aqui</span>
         </form>
       </div>
   );

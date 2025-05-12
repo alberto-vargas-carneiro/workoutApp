@@ -13,12 +13,12 @@
     flex-direction: column;
     min-height: 100vh;
     background-color: #060606;
+    padding: 40px;
 }
 
-.workout_container {
-    padding: 40px;
+/* .workout_container {
     flex-grow: 1;
-}
+} */
 
 .add {
     background-color: #A41618;
@@ -41,12 +41,16 @@
     width: 65px;
     font-size: 20px;
     margin: 20px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
 }
 
-.add2_container {
+/* .add2_container {
     position: relative;
     height: 65px;
-}
+} */
 
 .vazio {
     color: #ffffff;

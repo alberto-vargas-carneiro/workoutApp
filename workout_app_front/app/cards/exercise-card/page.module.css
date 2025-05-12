@@ -2,9 +2,9 @@
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
-    margin: 20px;
+    margin: 20px 0;
     padding: 10px;
-    background-color: #dadada;
+    background-color: #141414;
     border-radius: 15px;
     gap: 20px;
 }
@@ -14,5 +14,5 @@
 }
 
 .image {
-    border-radius: 10px;
+    border-radius: 15px;
 }
