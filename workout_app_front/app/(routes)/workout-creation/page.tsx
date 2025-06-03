@@ -7,6 +7,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import style from "./page.module.css";
+import { useRouter } from "next/navigation";
 
 interface Exercise {
     id: number;
@@ -29,7 +30,8 @@ interface Workout {
 export default function WorkoutCreation() {
     const [exercises, setExercises] = useState<Exercise[]>([]);
     const [selectedExercises, setSelectedExercises] = useState<Record<number, WorkoutItem[]>>({});
-    const [workoutName, setWorkoutName] = useState("");
+    const [workoutName, setWorkoutName] = useState("Novo Treino");
+    const router = useRouter();
 
     useEffect(() => {
         exerciseService.getExercises().then((response) => {
@@ -62,9 +64,9 @@ export default function WorkoutCreation() {
         };
 
         workoutService.newWorkout(workout).then(() => {
-            alert("Treino salvo!");
             setWorkoutName("");
             setSelectedExercises({});
+            router.push('/workouts');
         });
     };
 
@@ -80,18 +82,18 @@ export default function WorkoutCreation() {
                     value={workoutName}
                     onChange={(e) => setWorkoutName(e.target.value)}
                 />
+                <button className={style.save_button}
+                    onClick={saveWorkout}
+                >
+                    Salvar Treino
+                </button>
             </div>
-            <button
-                onClick={saveWorkout}
-            >
-                Salvar Treino
-            </button>
 
             <div className={style.items_container}>
                 <h2>Escolha os Exercícios</h2>
                 {exercises.map((exercise) => (
                     <>
-                        <div className={style.exerciseHolder} onClick={() => addSet(exercise.id)}>
+                        <div onClick={() => addSet(exercise.id)}>
                             <ExerciseCard key={exercise.id} exercise={exercise} />
                         </div>
                         <div>
@@ -99,28 +101,25 @@ export default function WorkoutCreation() {
                             {selectedExercises[exercise.id]?.map((set, index) => (
                                 <div key={index}>
                                     <div className={style.setsHeader}>
-                                        <div className={style.one}>KG</div>
+                                        <div className={style.one}>PESO</div>
                                         <div className={style.two}>REPS</div>
-                                        <div className={style.three}>REST</div>
+                                        <div className={style.three}>DESCANSO</div>
                                     </div>
                                     <div className={style.sets}>
                                         <input
                                             type="number"
                                             value={set.weight}
                                             onChange={(e) => updateSet(exercise.id, index, "weight", +e.target.value)}
-                                            placeholder="Peso"
                                         />
                                         <input
                                             type="number"
                                             value={set.reps}
                                             onChange={(e) => updateSet(exercise.id, index, "reps", +e.target.value)}
-                                            placeholder="Reps"
                                         />
                                         <input
                                             type="number"
                                             value={set.rest}
                                             onChange={(e) => updateSet(exercise.id, index, "rest", +e.target.value)}
-                                            placeholder="Descanso"
                                         />
                                     </div>
                                 </div>

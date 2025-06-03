@@ -29,18 +29,12 @@ export default function Home() {
     authService.loginRequest(formData)
       .then(response => {
         authService.saveAccessToken(response.data.access_token)
-        // console.log('Sucesso:', response.data)
         router.push('/workouts')
       })
       .catch(error => {
         console.log('Erro:', error.response.data)
       })
   }
-
-  // function handleRedirect() {
-  //   window.location.href = '/signup'
-  // }
-
 
   return (
       <div className={style.container}>

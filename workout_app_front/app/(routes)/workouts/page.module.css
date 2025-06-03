@@ -16,18 +16,20 @@
     padding: 40px;
 }
 
-/* .workout_container {
-    flex-grow: 1;
-} */
-
-.add {
-    background-color: #A41618;
-    color: #ffffff;
-    border-radius: 100%;
+.add_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 65px;
     width: 65px;
+    background-color: #A41618;
+    border-radius: 100%;
     margin: 50px;
     font-size: 20px;
+}
+
+.add {
+    color: #ffffff;
 }
 
 .add2 {

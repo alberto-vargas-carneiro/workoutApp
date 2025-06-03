@@ -33,10 +33,11 @@ export default function WorkoutPage() {
 
         <span className={style.vazio}>Aqui está vazio!</span>
         <span className={style.vazio}>Comece a mudança agora mesmo!</span>
-        <Link href={'/workout-creation'}>
-          <div className={style.add2}>+</div>
-        </Link>
-        <button className={style.add}>+</button>
+        <div className={style.add_container}>
+          <Link className={style.add} href={'/workout-creation'}>
+            +
+          </Link>
+        </div>
       </div>
     );
   }
@@ -51,8 +52,8 @@ export default function WorkoutPage() {
         ))}
       </div>
       <div className={style.add2_container}>
-        <Link href={'/workout-creation'}>
-          <span className={style.add2}>+</span>
+        <Link className={style.add2} href={'/workout-creation'}>
+          +
           {/* <button className={style.add2}>+</button> */}
         </Link>
       </div>
