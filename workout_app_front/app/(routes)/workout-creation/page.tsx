@@ -82,9 +82,7 @@ export default function WorkoutCreation() {
                     value={workoutName}
                     onChange={(e) => setWorkoutName(e.target.value)}
                 />
-                <button className={style.save_button}
-                    onClick={saveWorkout}
-                >
+                <button className={style.save_button} onClick={saveWorkout}>
                     Salvar Treino
                 </button>
             </div>

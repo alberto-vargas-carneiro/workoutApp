@@ -1,13 +1,16 @@
 'use client'
 
-import style from './page.module.css';
-import { FaArrowLeft } from "react-icons/fa";
-import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import * as workoutService from '@/app/services/workout-service';
 import WorkoutItemsCard from '@/app/cards/workout-cards/items/page';
 import SetsCard from '@/app/cards/workout-cards/sets/page';
+import * as workoutService from '@/app/services/workout-service';
+import * as exerciseService from '@/app/services/exercise-service';
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { FaArrowLeft } from "react-icons/fa";
+import { RiPencilFill } from "react-icons/ri";
+import style from './page.module.css';
+import ExerciseCard from '@/app/cards/exercise-card/page';
 
 interface WorkoutItemDTO {
   id?: number;
@@ -32,6 +35,11 @@ interface WorkoutFullDTO {
   workoutItems: WorkoutItemDTO[];
 }
 
+interface Exercise {
+  id: number;
+  name: string;
+}
+
 export default function WorkoutDetailsPage() {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
@@ -39,6 +47,8 @@ export default function WorkoutDetailsPage() {
   const [isEditing, setIsEditing] = useState(false);
   const [workoutName, setWorkoutName] = useState('');
   const [newSetCounter, setNewSetCounter] = useState<number>(-1);
+  const [showExerciseList, setShowExerciseList] = useState(false);
+  const [availableExercises, setAvailableExercises] = useState<Exercise[]>([]);
 
   useEffect(() => {
     if (id) {
@@ -70,11 +80,38 @@ export default function WorkoutDetailsPage() {
     }
   }, [id]);
 
+  const fetchExercises = async () => {
+    const response = await exerciseService.getExercises();
+    setAvailableExercises(response.data.content);
+    setShowExerciseList(true);
+  };
+
+  function handleAddExercise(exercise: Exercise) {
+    setGroupedItems(prev => [
+      ...prev,
+      {
+        exerciseName: exercise.name,
+        exerciseId: exercise.id,
+        sets: [
+          {
+            exerciseId: exercise.id,
+            exerciseName: exercise.name,
+            setNumber: 1,
+            reps: '12',
+            rest: 60,
+            weight: 0,
+          }
+        ]
+      }
+    ]);
+    setShowExerciseList(false);
+  }
+
   function handleSetChange(groupIndex: number, setIndex: number, field: keyof WorkoutItemDTO, value: WorkoutItemDTO[keyof WorkoutItemDTO]) {
     setGroupedItems(prev => prev.map((group, idx) => {
       if (idx !== groupIndex) return group;
-      return { 
-        ...group, 
+      return {
+        ...group,
         sets: group.sets.map((set, sIdx) => {
           if (sIdx !== setIndex) return set;
           return { ...set, [field]: value };
@@ -107,7 +144,6 @@ export default function WorkoutDetailsPage() {
       return { ...group, sets: group.sets.filter((_, i) => i !== setIndex) };
     }));
   }
-  
 
   function buildPayload(): WorkoutFullDTO {
     const workoutItems: WorkoutItemDTO[] = [];
@@ -127,7 +163,6 @@ export default function WorkoutDetailsPage() {
     try {
       const payload = buildPayload();
       await workoutService.updateWorkout(Number(id), payload);
-      alert('Treino atualizado com sucesso!');
       setIsEditing(false);
     } catch (error) {
       console.error(error);
@@ -144,65 +179,94 @@ export default function WorkoutDetailsPage() {
           <FaArrowLeft className={style.arrow} />
         </Link>
         {isEditing ? (
-          <input
-            type="text"
-            value={workoutName}
-            onChange={e => setWorkoutName(e.target.value)}
-            className={style.edit_name_input}
-          />
+          <>
+            <input
+              type="text"
+              value={workoutName}
+              onChange={e => setWorkoutName(e.target.value)}
+            />
+            <button className={style.add_exercise_button} onClick={fetchExercises}>Adicionar Exercício</button>
+            <button className={style.save_button} onClick={handleSave}>Salvar Alterações</button>
+          </>
         ) : (
           <h1>{workoutName}</h1>
         )}
-        <button onClick={() => setIsEditing(!isEditing)}>
-          {isEditing ? "Cancelar edição" : "Editar"}
+        <button className={style.edit_button} onClick={() => setIsEditing(!isEditing)}>
+          {!isEditing && <RiPencilFill />}
         </button>
       </div>
 
+      {showExerciseList && (
+        <div className={style.modal_container}>
+          <div className={style.modal}>
+            <h3>Escolha um exercício:</h3>
+            {availableExercises.map(ex => (
+              <div key={ex.id} onClick={() => handleAddExercise(ex)}>
+                <ExerciseCard exercise={ex} />
+              </div>
+            ))}
+            <button className={style.cancel_button} onClick={() => setShowExerciseList(false)}>Cancelar</button>
+          </div>
+        </div>
+      )}
+
       <div className={style.items_container}>
         {groupedItems.map((group, gIndex) => (
-          <div key={group.exerciseName} className={style.exercise_group}>
+          <div key={group.exerciseName}>
             <WorkoutItemsCard name={group.exerciseName} />
             {group.sets.map((set, sIndex) => (
-              <div key={set.id} className={style.setRow}>
+              <div key={set.id}>
                 {isEditing ? (
                   <>
-                    <input
-                      type="number"
-                      value={set.setNumber}
-                      onChange={e => handleSetChange(gIndex, sIndex, 'setNumber', parseInt(e.target.value))}
-                      placeholder="Série"
-                    />
-                    <input
-                      type="number"
-                      value={set.weight ?? ''}
-                      onChange={e => handleSetChange(gIndex, sIndex, 'weight', parseInt(e.target.value))}
-                      placeholder="Peso"
-                    />
-                    <input
-                      type="text"
-                      value={set.reps}
-                      onChange={e => handleSetChange(gIndex, sIndex, 'reps', e.target.value)}
-                      placeholder="Reps"
-                    />
-                    <input
-                      type="number"
-                      value={set.rest}
-                      onChange={e => handleSetChange(gIndex, sIndex, 'rest', parseInt(e.target.value))}
-                      placeholder="Descanso"
-                    />
-                    <button onClick={() => handleRemoveSet(gIndex, sIndex)}>Remover</button>
+                    <div className={style.sets_header}>
+                      <div>SÉRIE</div>
+                      <div>PESO</div>
+                      <div>REPS</div>
+                      <div>DESCANSO</div>
+                    </div>
+
+                    <div className={style.sets}>
+                      <input
+                        type="number"
+                        value={set.setNumber}
+                        onChange={e => handleSetChange(gIndex, sIndex, 'setNumber', parseInt(e.target.value))}
+                        placeholder="Série"
+                      />
+                      <input
+                        type="number"
+                        value={set.weight ?? ''}
+                        onChange={e => handleSetChange(gIndex, sIndex, 'weight', parseInt(e.target.value))}
+                        placeholder="Peso"
+                      />
+                      <input
+                        type="text"
+                        value={set.reps}
+                        onChange={e => handleSetChange(gIndex, sIndex, 'reps', e.target.value)}
+                        placeholder="Reps"
+                      />
+                      <input
+                        type="number"
+                        value={set.rest}
+                        onChange={e => handleSetChange(gIndex, sIndex, 'rest', parseInt(e.target.value))}
+                        placeholder="Descanso"
+                      />
+                    </div>
+                    <div className={style.remove}>
+                      <button className={style.remove_button} onClick={() => handleRemoveSet(gIndex, sIndex)}>X</button>
+                    </div>
                   </>
                 ) : (
                   <SetsCard set={set.setNumber} weight={set.weight} reps={set.reps} rest={set.rest} />
                 )}
               </div>
             ))}
-            {isEditing && <button onClick={() => handleAddSet(gIndex)}>+ Adicionar Série</button>}
+            <div className={style.add}>
+              {isEditing && <button className={style.add_button} onClick={() => handleAddSet(gIndex)}>+</button>}
+            </div>
           </div>
         ))}
       </div>
 
-      {isEditing && <button onClick={handleSave} className={style.saveButton}>Salvar alterações</button>}
     </div>
   );
 }

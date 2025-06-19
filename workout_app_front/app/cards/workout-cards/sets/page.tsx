@@ -10,6 +10,11 @@ interface SetsCardProps {
 export default function SetsCard(props: SetsCardProps) {
     return (
         <>
+            <div className={style.stats}>
+                <span className={style.one}>SET</span>
+                <span className={style.two}>PESO</span>
+                <span className={style.three}>REPS</span>
+            </div>
             <div className={style.sets}>
                 <span className={style.one}>{props.set}</span>
                 <span className={style.two}>{props.weight}</span>

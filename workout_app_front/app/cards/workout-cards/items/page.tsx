@@ -13,11 +13,6 @@ export default function WorkoutItemsCard(props: ItemsCardProps) {
                 <Image src="/image.png" width={65} height={65} alt='exercício' />
                 <span>{props.name}</span>
             </div>
-            <div className={style.stats}>
-                <span className={style.one}>SET</span>
-                <span className={style.two}>KG</span>
-                <span className={style.three}>REPS</span>
-            </div>
         </div>
     );
 }

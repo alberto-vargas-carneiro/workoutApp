@@ -13,26 +13,3 @@
 .exercise_name img {
     border-radius: 15px;
 }
-
-.stats {
-    display: grid;
-    grid-template-areas: "one two three";
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 15px 25px 5px 25px;
-    font-size: 0.7rem;
-}
-
-.one {
-    grid-area: one;
-    text-align: left;
-}
-
-.two {
-    grid-area: two;
-    text-align: center;
-}
-
-.three {
-    grid-area: three;
-    text-align: right;
-}

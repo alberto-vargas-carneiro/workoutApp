@@ -20,15 +20,15 @@
 .title input {
     text-align: center;
     padding: 10px;
-    border-radius: 5px;
+    border-radius: 15px;
     font-size: 16px;
 }
 
 .save_button {
-    background-color: #ffffff;
-    color: #A41618;
+    background-color: #000000;
+    color: #ffffff;
     padding: 10px 20px;
-    border-radius: 5px;
+    border-radius: 15px;
     cursor: pointer;
     margin-top: 20px;
 }
@@ -73,6 +73,7 @@
 .sets input {
     width: 50px;
     text-align: center;
+    border-radius: 15px;
 }
 
 .one {
