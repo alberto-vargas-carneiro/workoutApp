@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 interface Exercise {
     id: number;
     name: string;
+    video: string;
 }
 
 interface WorkoutItem {

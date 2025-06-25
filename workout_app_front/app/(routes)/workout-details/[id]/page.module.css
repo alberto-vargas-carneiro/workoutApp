@@ -11,7 +11,7 @@
     width: 100%;
     position: relative;
     color: #fff;
-    padding: 40px 40px 20px;
+    padding: 60px 20px 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -22,6 +22,15 @@
     padding: 10px;
     border-radius: 15px;
     font-size: 16px;
+}
+
+.edit_button {
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    color: #fff;
+    background-color: #00000000;
+    font-size: 20px;
 }
 
 .save_button {
@@ -48,7 +57,7 @@
     padding: 10px 20px;
     border-radius: 15px;
     cursor: pointer;
-    margin-top: 20px;
+    margin: 20px;
 }
 
 .arrow {
@@ -56,6 +65,20 @@
     left: 30px;
     top: 30px;
     color: #fff;
+}
+
+.exercise_header {
+    position: relative;
+}
+
+.remove_exercise_button {
+    position: absolute;
+    right: 0;
+    top: 20px;
+    color: #a1a1a1;
+    background-color: #00000000;
+    font-size: 1.2rem;
+    cursor: pointer;
 }
 
 .items_container {
@@ -70,31 +93,24 @@
     padding: 30px 40px;
 }
 
-.edit_button {
-    position: absolute;
-    right: 30px;
-    top: 30px;
-    color: #fff;
-    background-color: #00000000;
-    font-size: 20px;
-}
-
 .modal_container {
-    position: fixed;
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.95);
+    min-height: 100%;
+    background-color: rgba(0, 0, 0);
     display: flex;
     justify-content: center;
     align-items: center;
     color: #fff;
+    z-index: 1;
 }
 
 .modal {
     width: 80%;
     text-align: center;
+    margin-top: 20px;
 }
 
 .sets {
@@ -117,7 +133,7 @@
     justify-content: space-between;
     padding: 5px 25px;
     font-size: 0.7rem;
-    margin-top: 6px;
+    margin-top: 10px;
 }
 
 .rest input {
@@ -127,26 +143,24 @@
     border-radius: 15px;
 }
 
-.remove_button {
+.remove_button, .add_button {
     background-color: #ff0000;
+    height: 30px;
+    width: 30px;
     color: #ffffff;
-    font-size: 0.8rem;
-    border-radius: 15px;
-    padding: 6px 10px;
-    margin: 5px 0;
+    font-size: 1.2rem;
+    border-radius: 100%;
     cursor: pointer;
 }
 
 .add_button {
     background-color: #00bd00;
-    color: #ffffff;
-    font-size: 1.2rem;
-    border-radius: 15px;
-    padding: 3px 9px;
-    cursor: pointer;
+    font-size: 1.4rem;
 }
 
-.remove, .add {
+.add_remove_buttons{
     display: flex;
     justify-content: center;
+    margin-top: 5px;
+    gap: 5px;
 }

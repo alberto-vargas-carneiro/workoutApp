@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { FaArrowLeft } from "react-icons/fa";
+import { FaRegTrashAlt } from "react-icons/fa";
 import { RiPencilFill } from "react-icons/ri";
 import style from './page.module.css';
 import ExerciseCard from '@/app/cards/exercise-card/page';
@@ -20,7 +21,7 @@ interface WorkoutItemDTO {
   reps: string;
   rest: number;
   weight: number;
-  video?: string;
+  video: string;
 }
 
 interface GroupedWorkout {
@@ -38,6 +39,7 @@ interface WorkoutFullDTO {
 interface Exercise {
   id: number;
   name: string;
+  video: string;
 }
 
 export default function WorkoutDetailsPage() {
@@ -100,11 +102,16 @@ export default function WorkoutDetailsPage() {
             reps: '12',
             rest: 60,
             weight: 0,
+            video: exercise.video,
           }
         ]
       }
     ]);
     setShowExerciseList(false);
+  }
+
+  function handleRemoveExercise(groupIndex: number) {
+    setGroupedItems(prev => prev.filter((_, idx) => idx !== groupIndex));
   }
 
   function handleSetChange(groupIndex: number, setIndex: number, field: keyof WorkoutItemDTO, value: WorkoutItemDTO[keyof WorkoutItemDTO]) {
@@ -131,7 +138,8 @@ export default function WorkoutDetailsPage() {
         setNumber: group.sets.length + 1,
         reps: '12',
         rest: 60,
-        weight: 0
+        weight: 0,
+        video: group.sets[0].video
       };
       return { ...group, sets: [...group.sets, newSet] };
     }));
@@ -205,7 +213,9 @@ export default function WorkoutDetailsPage() {
                 <ExerciseCard exercise={ex} />
               </div>
             ))}
-            <button className={style.cancel_button} onClick={() => setShowExerciseList(false)}>Cancelar</button>
+            <button
+              className={style.cancel_button}
+              onClick={() => setShowExerciseList(false)}>Cancelar</button>
           </div>
         </div>
       )}
@@ -213,7 +223,16 @@ export default function WorkoutDetailsPage() {
       <div className={style.items_container}>
         {groupedItems.map((group, gIndex) => (
           <div key={group.exerciseName}>
-            <WorkoutItemsCard name={group.exerciseName} />
+            <div className={style.exercise_header}>
+              <WorkoutItemsCard name={group.exerciseName} video={group.sets[0].video} />
+              {isEditing && (
+                <button
+                  className={style.remove_exercise_button}
+                  onClick={() => handleRemoveExercise(gIndex)}>
+                  <FaRegTrashAlt />
+                </button>
+              )}
+            </div>
             {group.sets.map((set, sIndex) => (
               <div key={set.id}>
                 {isEditing ? (
@@ -251,22 +270,34 @@ export default function WorkoutDetailsPage() {
                         placeholder="Descanso"
                       />
                     </div>
-                    <div className={style.remove}>
-                      <button className={style.remove_button} onClick={() => handleRemoveSet(gIndex, sIndex)}>X</button>
-                    </div>
+
+                    {isEditing && sIndex === group.sets.length - 1 && group.sets.length > 1 && (
+                      <div className={style.add_remove_buttons}>
+                        <button
+                          className={style.remove_button}
+                          onClick={() => handleRemoveSet(gIndex, sIndex)}>
+                          x
+                        </button>
+                      </div>
+                    )}
+                    {isEditing && sIndex === group.sets.length - 1 && (
+                      <div className={style.add_remove_buttons}>
+                        <button
+                          className={style.add_button}
+                          onClick={() => handleAddSet(gIndex)}>
+                          +
+                        </button>
+                      </div>
+                    )}
                   </>
                 ) : (
                   <SetsCard set={set.setNumber} weight={set.weight} reps={set.reps} rest={set.rest} />
                 )}
               </div>
             ))}
-            <div className={style.add}>
-              {isEditing && <button className={style.add_button} onClick={() => handleAddSet(gIndex)}>+</button>}
-            </div>
           </div>
         ))}
       </div>
-
     </div>
   );
 }

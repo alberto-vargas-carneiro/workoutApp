@@ -8,12 +8,21 @@ INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 1);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (1, 2);
 INSERT INTO tb_user_role (user_id, role_id) VALUES (2, 1);
 
-INSERT INTO tb_exercise (name, video) VALUES ('Flexão', 'https://www.youtube.com/watch?v=UwRLWMcOdwI');
-INSERT INTO tb_exercise (name, video) VALUES ('Supino Inclinado', 'https://www.youtube.com/watch?v=UwRLWMcOdwI');
-INSERT INTO tb_exercise (name, video) VALUES ('Puxada com Triângulo', 'https://www.youtube.com/watch?v=UwRLWMcOdwI');
-INSERT INTO tb_exercise (name, video) VALUES ('Rosca Barra W', 'https://www.youtube.com/watch?v=UwRLWMcOdwI');
-INSERT INTO tb_exercise (name, video) VALUES ('Testa', 'https://www.youtube.com/watch?v=UwRLWMcOdwI');
-INSERT INTO tb_exercise (name, video) VALUES ('Leg 45°', 'https://www.youtube.com/watch?v=UwRLWMcOdwI');
+INSERT INTO tb_exercise (name, video) VALUES ('Flexão', 'https://i.imgur.com/zbBLV1t.png');
+INSERT INTO tb_exercise (name, video) VALUES ('Supino Inclinado', 'https://i.imgur.com/hLl9NKv.png');
+INSERT INTO tb_exercise (name, video) VALUES ('Puxada com Triângulo', 'https://i.imgur.com/HELlBze.png');
+INSERT INTO tb_exercise (name, video) VALUES ('Rosca Barra W', 'https://i.imgur.com/SvzC9zg.png');
+INSERT INTO tb_exercise (name, video) VALUES ('Tríceps Testa', 'https://i.imgur.com/5WNjy4g.png');
+INSERT INTO tb_exercise (name, video) VALUES ('Leg Press 45°', 'https://i.imgur.com/eJz6xv3.png');
+INSERT INTO tb_exercise (name, video) VALUES ('Rosca Scott', 'https://i.imgur.com/8PifBi0.png');
+INSERT INTO tb_exercise (name, video) VALUES ('Leg Press Horizontal', 'https://i.imgur.com/VNXi6vK.png');
+INSERT INTO tb_exercise (name, video) VALUES ('Agachamento Livre', 'https://i.imgur.com/uh01OOh.png');
+INSERT INTO tb_exercise (name, video) VALUES ('Cadeira Extensora', 'https://i.imgur.com/vtuaK5F.png');
+INSERT INTO tb_exercise (name, video) VALUES ('Cross Over', 'https://i.imgur.com/F092gwl.png');
+INSERT INTO tb_exercise (name, video) VALUES ('Remada Curvada', 'https://i.imgur.com/usRrRIb.png');
+INSERT INTO tb_exercise (name, video) VALUES ('Puxada', 'https://i.imgur.com/AOvz0PY.png');
+INSERT INTO tb_exercise (name, video) VALUES ('Tríceps Polia', 'https://i.imgur.com/9nhspju.png');
+INSERT INTO tb_exercise (name, video) VALUES ('Desenvolvimento', 'https://i.imgur.com/nfrS3jS.png');
 
 INSERT INTO tb_workout (name, date, user_id) VALUES ('Treino de Peito', TIMESTAMP WITH TIME ZONE '2022-05-25T13:00:00Z', 1);
 INSERT INTO tb_workout (name, date, user_id) VALUES ('Treino de Costas', TIMESTAMP WITH TIME ZONE '2023-02-05T13:00:00Z', 2);
