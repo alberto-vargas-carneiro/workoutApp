@@ -1,10 +1,12 @@
 'use client'
 
 import { useState } from "react";
+import { FaArrowLeft } from "react-icons/fa";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { UserDTO } from "../../models/auth";
 import * as authService from "../../services/auth-service";
 import style from "./page.module.css";
+import Link from "next/link";
 
 export default function SignUp() {
 
@@ -39,6 +41,10 @@ export default function SignUp() {
 
     return (
         <div className={style.container}>
+
+            <Link href={'/'}>
+                <FaArrowLeft className={style.arrow} />
+            </Link>
 
             <form className={style.formContainer} onSubmit={handleSubmit}>
                 <input className={style.form}

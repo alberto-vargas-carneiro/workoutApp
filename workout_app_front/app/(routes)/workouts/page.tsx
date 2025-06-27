@@ -46,15 +46,13 @@ export default function WorkoutPage() {
     <div className={style.container2}>
       <div className={style.workout_container}>
         {workouts.map(workout => (
-          <>
-            <WorkoutCard key={workout.id} workout={workout} />
-          </>
+          <WorkoutCard key={workout.id} workout={workout} />
         ))}
       </div>
+
       <div className={style.add2_container}>
         <Link className={style.add2} href={'/workout-creation'}>
           +
-          {/* <button className={style.add2}>+</button> */}
         </Link>
       </div>
     </div>

@@ -90,3 +90,14 @@
     grid-area: three;
     text-align: right;
 }
+
+.remove_button {
+    background-color: #ff0000;
+    height: 30px;
+    width: 30px;
+    color: #ffffff;
+    font-size: 1.2rem;
+    border-radius: 100%;
+    margin-top: 5px;
+    cursor: pointer;
+}

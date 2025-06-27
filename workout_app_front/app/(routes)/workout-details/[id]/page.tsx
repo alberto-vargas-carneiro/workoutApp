@@ -183,9 +183,16 @@ export default function WorkoutDetailsPage() {
   return (
     <div className={style.container}>
       <div className={style.title}>
-        <Link href={'/workouts'}>
-          <FaArrowLeft className={style.arrow} />
-        </Link>
+        {isEditing ? (
+          <button onClick={() => setIsEditing(false)} >
+            <FaArrowLeft className={style.arrow} />
+          </button>
+        ) : (
+          <Link href={'/workouts'}>
+            <FaArrowLeft className={style.arrow} />
+          </Link>
+        )}
+
         {isEditing ? (
           <>
             <input
@@ -204,21 +211,23 @@ export default function WorkoutDetailsPage() {
         </button>
       </div>
 
-      {showExerciseList && (
-        <div className={style.modal_container}>
-          <div className={style.modal}>
-            <h3>Escolha um exercício:</h3>
-            {availableExercises.map(ex => (
-              <div key={ex.id} onClick={() => handleAddExercise(ex)}>
-                <ExerciseCard exercise={ex} />
-              </div>
-            ))}
-            <button
-              className={style.cancel_button}
-              onClick={() => setShowExerciseList(false)}>Cancelar</button>
+      {
+        showExerciseList && (
+          <div className={style.modal_container}>
+            <div className={style.modal}>
+              <h3>Escolha um exercício:</h3>
+              {availableExercises.map(ex => (
+                <div key={ex.id} onClick={() => handleAddExercise(ex)}>
+                  <ExerciseCard exercise={ex} />
+                </div>
+              ))}
+              <button
+                className={style.cancel_button}
+                onClick={() => setShowExerciseList(false)}>Cancelar</button>
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
 
       <div className={style.items_container}>
         {groupedItems.map((group, gIndex) => (
@@ -271,17 +280,15 @@ export default function WorkoutDetailsPage() {
                       />
                     </div>
 
-                    {isEditing && sIndex === group.sets.length - 1 && group.sets.length > 1 && (
-                      <div className={style.add_remove_buttons}>
-                        <button
-                          className={style.remove_button}
-                          onClick={() => handleRemoveSet(gIndex, sIndex)}>
-                          x
-                        </button>
-                      </div>
-                    )}
                     {isEditing && sIndex === group.sets.length - 1 && (
                       <div className={style.add_remove_buttons}>
+                        {group.sets.length > 1 && (
+                          <button
+                            className={style.remove_button}
+                            onClick={() => handleRemoveSet(gIndex, sIndex)}>
+                            x
+                          </button>
+                        )}
                         <button
                           className={style.add_button}
                           onClick={() => handleAddSet(gIndex)}>
@@ -289,6 +296,7 @@ export default function WorkoutDetailsPage() {
                         </button>
                       </div>
                     )}
+
                   </>
                 ) : (
                   <SetsCard set={set.setNumber} weight={set.weight} reps={set.reps} rest={set.rest} />
@@ -298,6 +306,6 @@ export default function WorkoutDetailsPage() {
           </div>
         ))}
       </div>
-    </div>
+    </div >
   );
 }

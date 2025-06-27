@@ -58,6 +58,14 @@ export default function WorkoutCreation() {
         });
     };
 
+    const removeSet = (exerciseId: number, index: number) => {
+        setSelectedExercises((prev) => {
+            const updatedSets = [...(prev[exerciseId] || [])];
+            updatedSets.splice(index, 1);
+            return { ...prev, [exerciseId]: updatedSets };
+        });
+    };
+
     const saveWorkout = () => {
         const workout: Workout = {
             name: workoutName,
@@ -109,20 +117,32 @@ export default function WorkoutCreation() {
                                             type="number"
                                             value={set.weight}
                                             onChange={(e) => updateSet(exercise.id, index, "weight", +e.target.value)}
+                                            placeholder="Peso"
                                         />
                                         <input
                                             type="number"
                                             value={set.reps}
                                             onChange={(e) => updateSet(exercise.id, index, "reps", +e.target.value)}
+                                            placeholder="Reps"
                                         />
                                         <input
                                             type="number"
                                             value={set.rest}
                                             onChange={(e) => updateSet(exercise.id, index, "rest", +e.target.value)}
+                                            placeholder="Descanso"
                                         />
+
                                     </div>
+                                    {index === selectedExercises[exercise.id].length - 1 && (
+                                        <button
+                                            className={style.remove_button}
+                                            onClick={() => removeSet(exercise.id, index)}>
+                                            x
+                                        </button>
+                                    )}
                                 </div>
                             ))}
+
                         </div>
                     </>
                 ))}

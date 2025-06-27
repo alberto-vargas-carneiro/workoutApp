@@ -42,17 +42,17 @@
     height: 65px;
     width: 65px;
     font-size: 20px;
-    margin: 20px 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: bold;
 }
 
-/* .add2_container {
+.add2_container {
+    flex-grow: 1;
     position: relative;
     height: 65px;
-} */
+}
 
 .vazio {
     color: #ffffff;
