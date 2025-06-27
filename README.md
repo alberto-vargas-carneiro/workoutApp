@@ -10,11 +10,10 @@ Backend:
 
 - Java
 - Spring Framework (Spring Boot, Spring Data JPA, Spring Security)
-- H2 Database (para testes)
+- H2 Database
 
 Frontend:
 
 - React
 - TypeScript
-- Axios
 - Next.js
