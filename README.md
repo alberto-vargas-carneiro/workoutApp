@@ -20,7 +20,8 @@ Frontend:
 
 ## Pré-requisitos para rodar o projeto
 
-Este programa foi desenvolvido levando em conta seu uso em smartphones, para uma melhor experiência inspecionar o programa no browser e simular um aparelho móvel
+Este programa foi desenvolvido levando em conta seu uso em smartphones
+Para ter a experiência ideal é recomendado inspecionar o programa no browser e simular um aparelho móvel
 
 É necessário ter os seguintes programas instalados na máquina: (versões utilizadas nesse projeto)
 
