@@ -17,3 +17,27 @@ Frontend:
 - React
 - TypeScript
 - Next.js
+
+## Pré-requisitos para rodar o projeto
+
+É necessário ter os seguintes programas instalados na máquina: (versões utilizadas nesse projeto)
+
+- Git
+- Node.js (22.15.1)
+- Java (21)
+- Maven (3.9.9)
+
+## Depois de clonar o projeto
+
+Frontend:
+- Acessar o arquivo referente ao frontend
+- Digitar "npm i" no terminal para instalar as dependências
+- Digitar "npm run dev" para iniciar o programa (será executado na porta http://localhost:3000)
+
+Backend:
+- Acessar o arquivo referente ao backend
+- Clicar no botão da sua IDE para rodar o projeto java ou digitar "./mvnw spring-boot:run" no terminal (será executado na porta http://localhost:8080)
+Para acessar o banco H2 entrar em "http://localhost:8080/h2-console"
+JDBC URL: jdbc:h2:mem:testdb
+User name: sa
+Password:
