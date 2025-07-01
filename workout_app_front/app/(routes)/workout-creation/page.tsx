@@ -100,38 +100,45 @@ export default function WorkoutCreation() {
                 <h2>Escolha os Exercícios</h2>
                 {exercises.map((exercise) => (
                     <>
-                        <div onClick={() => addSet(exercise.id)}>
-                            <ExerciseCard key={exercise.id} exercise={exercise} />
+                        <div className={style.exercise_container}>
+                            <div
+                                className={style.exercise_card}
+                                onClick={() => addSet(exercise.id)}>
+                                <ExerciseCard key={exercise.id} exercise={exercise} />
+                            </div>
                         </div>
                         <div>
 
                             {selectedExercises[exercise.id]?.map((set, index) => (
                                 <div key={index}>
-                                    <div className={style.setsHeader}>
-                                        <div className={style.one}>PESO</div>
-                                        <div className={style.two}>REPS</div>
-                                        <div className={style.three}>DESCANSO</div>
-                                    </div>
-                                    <div className={style.sets}>
-                                        <input
-                                            type="number"
-                                            value={set.weight}
-                                            onChange={(e) => updateSet(exercise.id, index, "weight", +e.target.value)}
-                                            placeholder="Peso"
-                                        />
-                                        <input
-                                            type="number"
-                                            value={set.reps}
-                                            onChange={(e) => updateSet(exercise.id, index, "reps", +e.target.value)}
-                                            placeholder="Reps"
-                                        />
-                                        <input
-                                            type="number"
-                                            value={set.rest}
-                                            onChange={(e) => updateSet(exercise.id, index, "rest", +e.target.value)}
-                                            placeholder="Descanso"
-                                        />
+                                    <div className={style.sets_container}>
 
+                                        <div className={style.setsHeader}>
+                                            <div className={style.one}>PESO</div>
+                                            <div className={style.two}>REPS</div>
+                                            <div className={style.three}>DESCANSO</div>
+                                        </div>
+
+                                        <div className={style.sets}>
+                                            <input
+                                                type="number"
+                                                value={set.weight}
+                                                onChange={(e) => updateSet(exercise.id, index, "weight", +e.target.value)}
+                                                placeholder="Peso"
+                                            />
+                                            <input
+                                                type="number"
+                                                value={set.reps}
+                                                onChange={(e) => updateSet(exercise.id, index, "reps", +e.target.value)}
+                                                placeholder="Reps"
+                                            />
+                                            <input
+                                                type="number"
+                                                value={set.rest}
+                                                onChange={(e) => updateSet(exercise.id, index, "rest", +e.target.value)}
+                                                placeholder="Descanso"
+                                            />
+                                        </div>
                                     </div>
                                     {index === selectedExercises[exercise.id].length - 1 && (
                                         <button

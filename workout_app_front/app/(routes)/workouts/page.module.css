@@ -59,3 +59,10 @@
     font-size: 32px;
     text-align: center;
 }
+
+@media screen and (min-width: 768px) {
+    .workout_container {
+        width: 60%;
+        align-self: center;
+    }
+}

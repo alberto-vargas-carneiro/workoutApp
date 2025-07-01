@@ -31,6 +31,7 @@
     color: #fff;
     background-color: #00000000;
     font-size: 20px;
+    cursor: pointer;
 }
 
 .save_button {
@@ -65,6 +66,7 @@
     left: 30px;
     top: 30px;
     color: #fff;
+    cursor: pointer;
 }
 
 .exercise_header {
@@ -163,4 +165,18 @@
     justify-content: center;
     margin-top: 5px;
     gap: 5px;
+}
+
+@media screen and (min-width: 768px) {
+    .exercise_container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .exercise_group {
+        width: 60%;
+    }
+    
 }

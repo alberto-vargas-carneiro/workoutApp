@@ -211,27 +211,27 @@ export default function WorkoutDetailsPage() {
         </button>
       </div>
 
-      {
-        showExerciseList && (
-          <div className={style.modal_container}>
-            <div className={style.modal}>
-              <h3>Escolha um exercício:</h3>
-              {availableExercises.map(ex => (
-                <div key={ex.id} onClick={() => handleAddExercise(ex)}>
-                  <ExerciseCard exercise={ex} />
-                </div>
-              ))}
-              <button
-                className={style.cancel_button}
-                onClick={() => setShowExerciseList(false)}>Cancelar</button>
-            </div>
+      {showExerciseList && (
+        <div className={style.modal_container}>
+          <div className={style.modal}>
+            <h3>Escolha um exercício:</h3>
+            {availableExercises.map(ex => (
+              <div key={ex.id} onClick={() => handleAddExercise(ex)}>
+                <ExerciseCard exercise={ex} />
+              </div>
+            ))}
+            <button
+              className={style.cancel_button}
+              onClick={() => setShowExerciseList(false)}>Cancelar</button>
           </div>
-        )
+        </div>
+      )
       }
 
       <div className={style.items_container}>
+        <div className={style.exercise_container}>
         {groupedItems.map((group, gIndex) => (
-          <div key={group.exerciseName}>
+          <div key={group.exerciseName} className={style.exercise_group}>
             <div className={style.exercise_header}>
               <WorkoutItemsCard name={group.exerciseName} video={group.sets[0].video} />
               {isEditing && (
@@ -305,6 +305,7 @@ export default function WorkoutDetailsPage() {
             ))}
           </div>
         ))}
+        </div>
       </div>
     </div >
   );
