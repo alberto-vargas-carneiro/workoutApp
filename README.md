@@ -20,9 +20,6 @@ Frontend:
 
 ## Pré-requisitos para rodar o projeto
 
-Este programa foi desenvolvido levando em conta seu uso em smartphones
-Para ter a experiência ideal é recomendado inspecionar o programa no browser e simular um aparelho móvel
-
 É necessário ter os seguintes programas instalados na máquina: (versões utilizadas nesse projeto)
 
 - Git
@@ -40,7 +37,7 @@ Frontend:
 Backend:
 - Acessar o arquivo referente ao backend
 - Clicar no botão da sua IDE para rodar o projeto java ou digitar "./mvnw spring-boot:run" no terminal (será executado na porta http://localhost:8080)
-Para acessar o banco H2 entrar em "http://localhost:8080/h2-console"
-JDBC URL: jdbc:h2:mem:testdb
-User name: sa
+- Para acessar o banco H2 entrar em "http://localhost:8080/h2-console"
+JDBC URL: jdbc:h2:mem:testdb,
+User name: sa,
 Password:
