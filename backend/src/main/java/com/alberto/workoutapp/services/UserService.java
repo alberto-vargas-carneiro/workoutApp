@@ -4,13 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +20,7 @@ import com.alberto.workoutapp.projections.UserDetailsProjection;
 import com.alberto.workoutapp.repositories.RoleRepository;
 import com.alberto.workoutapp.repositories.UserRepository;
 import com.alberto.workoutapp.services.exceptions.BadRequestException;
+import com.alberto.workoutapp.util.CustomUserUtil;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -32,6 +30,9 @@ public class UserService implements UserDetailsService {
 
 	@Autowired
 	private RoleRepository roleRepository;
+
+	@Autowired
+	private CustomUserUtil customUserUtil;
 
 	@Autowired
 	@Lazy
@@ -55,11 +56,9 @@ public class UserService implements UserDetailsService {
 		return user;
 	}
 
-	protected User authenticated() { // só pode ser chamado nas classes service
+	protected User authenticated() {
 		try {
-			Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-			Jwt jwtPrincipal = (Jwt) authentication.getPrincipal();
-			String username = jwtPrincipal.getClaim("username");
+			String username = customUserUtil.getLoggedUsername();
 			return repository.findByEmail(username).get();
 		} catch (Exception e) {
 			throw new UsernameNotFoundException("Email not found");
@@ -74,8 +73,8 @@ public class UserService implements UserDetailsService {
 		}
 
 		if (!userNewDto.getPassword().equals(userNewDto.getConfirmPassword())) {
-            throw new BadRequestException("Passwords do not match");
-        }
+			throw new BadRequestException("Passwords do not match");
+		}
 		User entity = new User();
 		entity.setName(userNewDto.getName());
 		entity.setEmail(userNewDto.getEmail());
