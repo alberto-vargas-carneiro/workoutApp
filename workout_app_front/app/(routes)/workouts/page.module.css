@@ -62,7 +62,7 @@
 
 @media screen and (min-width: 768px) {
     .workout_container {
-        width: 60%;
+        width: 40%;
         align-self: center;
     }
 }

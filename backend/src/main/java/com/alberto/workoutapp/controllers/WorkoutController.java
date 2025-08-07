@@ -1,7 +1,6 @@
 package com.alberto.workoutapp.controllers;
 
 import java.net.URI;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,13 +31,6 @@ public class WorkoutController {
     @GetMapping(value = "/{id}")
     public ResponseEntity<WorkoutDTO> findById(@PathVariable Long id) {
         WorkoutDTO dto = service.findById(id);
-        return ResponseEntity.ok(dto);
-    }
-
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-    @GetMapping(value = "/user/{id}")
-    public ResponseEntity<List<WorkoutDTO>> findByUserId(@PathVariable Long id) {
-        List<WorkoutDTO> dto = service.findByUserId(id);
         return ResponseEntity.ok(dto);
     }
 

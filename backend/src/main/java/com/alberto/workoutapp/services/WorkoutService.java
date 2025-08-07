@@ -52,20 +52,6 @@ public class WorkoutService {
         return new WorkoutDTO(workout);
     }
 
-    @Transactional(readOnly = true)
-    public List<WorkoutDTO> findByUserId(Long id) {
-        List<Workout> workout = repository.findByUserId(id);
-        if (workout.isEmpty()) {
-            throw new ResourceNotFoundException("Recurso não encontrado");
-        }
-
-        validateUser.validateSelfOrAdmin(workout.get(0).getUser().getId());
-
-        return workout.stream()
-                .map(WorkoutDTO::new)
-                .collect(Collectors.toList());
-    }
-
     @Transactional
     public WorkoutDTO insert(WorkoutDTO dto) {
         Workout entity = new Workout();
