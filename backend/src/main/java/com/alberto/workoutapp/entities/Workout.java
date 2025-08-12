@@ -36,6 +36,13 @@ public class Workout {
     public Workout() {
     }
 
+    public Workout(Long id, String name, Instant date, User user) {
+        this.id = id;
+        this.name = name;
+        this.date = date;
+        this.user = user;
+    }
+
     public Workout(Long id, String name, Instant date) {
         this.id = id;
         this.name = name;

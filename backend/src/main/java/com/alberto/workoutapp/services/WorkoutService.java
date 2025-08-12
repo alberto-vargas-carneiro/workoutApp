@@ -125,8 +125,6 @@ public class WorkoutService {
                     item.setRest(itemDto.getRest());
                     item.setWeight(itemDto.getWeight());
                 }
-                System.out.println("Adicionando WorkoutItem com exercise ID: " +
-                        (item.getExercise() != null ? item.getExercise().getId() : "NULL"));
 
                 updatedItems.add(item);
             }
