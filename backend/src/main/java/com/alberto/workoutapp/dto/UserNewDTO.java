@@ -1,5 +1,7 @@
 package com.alberto.workoutapp.dto;
 
+import com.alberto.workoutapp.entities.User;
+
 import jakarta.validation.constraints.Email;
 
 public class UserNewDTO {
@@ -9,6 +11,16 @@ public class UserNewDTO {
     private String email;
     private String password;
     private String confirmPassword;
+
+    public UserNewDTO() {
+    }
+
+    public UserNewDTO(User entity, String confirmPassword) {
+        this.name = entity.getName();
+        this.email = entity.getEmail();
+        this.password = entity.getPassword();
+        this.confirmPassword = confirmPassword;
+    }
 
     public UserNewDTO(String name, String email, String password, String confirmPassword) {
         this.name = name;
