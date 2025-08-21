@@ -139,6 +139,8 @@ public class WorkoutService {
             entity = repository.save(entity);
             workoutItemRepository.saveAll(updatedItems);
 
+            validateUser.validateSelfOrAdmin(entity.getUser().getId());
+
             return new WorkoutDTO(entity);
 
         } catch (EntityNotFoundException e) {

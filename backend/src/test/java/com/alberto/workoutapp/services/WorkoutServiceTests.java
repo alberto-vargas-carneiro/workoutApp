@@ -15,8 +15,10 @@ import org.mockito.Mockito;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.alberto.workoutapp.dto.WorkoutDTO;
+import com.alberto.workoutapp.entities.Exercise;
 import com.alberto.workoutapp.entities.User;
 import com.alberto.workoutapp.entities.Workout;
+import com.alberto.workoutapp.entities.WorkoutItem;
 import com.alberto.workoutapp.repositories.ExerciseRepository;
 import com.alberto.workoutapp.repositories.WorkoutItemRepository;
 import com.alberto.workoutapp.repositories.WorkoutRepository;
@@ -52,9 +54,7 @@ public class WorkoutServiceTests {
     @BeforeEach
     public void setUp() {
         user = UserFactory.createClientUser(1L, "email@email.com");
-        workout = new Workout(1L, "Morning Workout", Instant.ofEpochSecond(1633036800), user);
-
-        workoutDTO = new WorkoutDTO(workout);
+        workout = new Workout(1L, "Morning Workout", Instant.now(), user);
 
         Mockito.when(workoutRepository.findById(1L)).thenReturn(Optional.of(workout));
     }
@@ -98,7 +98,13 @@ public class WorkoutServiceTests {
     @Test
     public void insert_ShouldInsertWorkout_WhenValidData() {
 
+        Exercise exercise = new Exercise(1L, "Push Up", "pushup.mp4");
+        WorkoutItem workoutItem = new WorkoutItem(null, workout, exercise, 1, "3", 10, 10);
+        workout.getWorkoutItem().add(workoutItem);
+        workoutDTO = new WorkoutDTO(workout);
+
         Mockito.when(userService.authenticated()).thenReturn(user);
+        Mockito.when(workoutRepository.save(any(Workout.class))).thenReturn(workout);
 
         WorkoutDTO result = workoutService.insert(workoutDTO);
 
